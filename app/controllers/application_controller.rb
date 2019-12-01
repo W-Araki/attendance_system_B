@@ -17,11 +17,23 @@ class ApplicationController < ActionController::Base
   end
 
   def correct_user
-    redirect_to(root_url) unless current_user?(@user)
+    unless current_user?(@user)
+      flash[:danger] = "権限がありません。"
+      redirect_to(root_url)
+    end
   end
 
   def admin_user
-    redirect_to root_url unless current_user.admin?
+    unless current_user.admin?
+      redirect_to root_url 
+    end
+  end
+  
+  def admin_or_correct
+    unless current_user?(@user) || current_user.admin?
+      flash[:danger] = "権限がありません。"
+      redirect_to root_url
+    end
   end
     
   def set_one_month
