@@ -32,7 +32,7 @@ class AttendancesController < ApplicationController
   
   def update_one_month
     ActiveRecord::Base.transaction do
-      # ここに「既に出勤時間と退勤時間がどちらも存在している日付において」のコードを書く
+  # ここに「既に出勤時間と退勤時間がどちらも存在している日付において」のコードを書く
       if attendances_invalid?
         attendances_params.each do |id, item|
         attendance = Attendance.find(id)
