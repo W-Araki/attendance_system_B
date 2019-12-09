@@ -15,13 +15,13 @@ module AttendancesHelper
   def attendances_invalid?
     attendances = true
     attendances_params.each do |id, item|
-      if item[:started_at].blank? && item[:finished_at].blank?
-        next #判定結果が成立するのであればこれ以降の処理をスキップ
-      elsif item[:started_at].blank? || item[:finished_at].blank?
-        attendances = false
-        break # 判定結果が成立するのであれば実行
-      end
+    if item[:started_at].blank? && item[:finished_at].blank?
+      next #判定結果が成立するのであればこれ以降の処理をスキップ
+    elsif item[:started_at].blank? || item[:finished_at].blank?
+      attendances = false
+      break # 判定結果が成立するのであれば実行
     end
-    return attendances
+  end
+  return attendances
   end
 end
