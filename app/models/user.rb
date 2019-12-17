@@ -14,6 +14,10 @@ class User < ApplicationRecord
   
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  
+  scope :get_by_name, ->(name) {
+    where("name like ?", "%#{name}%")
+  }
 
   def User.digest(string)
     cost = 
@@ -41,10 +45,5 @@ class User < ApplicationRecord
   
   def forget
     update_attribute(:remember_digest, nil)
-  end
-  
-  def self.search(search) #User.を意味する
-    return User.all unless search 
-    User.where(['name LIKE ?', "%#{search}"])
   end
 end
