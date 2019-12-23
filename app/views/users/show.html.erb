@@ -60,7 +60,7 @@
             <% end %>
           </td>
           <td><%= day.started_at.hour if day.started_at.present? %></td> <%#時%>
-          <td><%= day.started_at.min.ceil_to(15 .minutes) if day.started_at.present? %></td> <%#分%>
+          <td><%= day.started_at.floor_to(15.minutes).min if day.started_at.present? %></td> <%#分%>
           <td>
             <%#<% if (Date.current == day.worked_on) && day.started_at.nil? %>
               <%#<%= link_to "出勤登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
@@ -72,12 +72,12 @@
             <% end %>
           </td>
           <td><%= day.finished_at.hour if day.finished_at.present? %></td>
-          <td><%= day.finished_at.min.ceil_to(15 .minutes) if day.finished_at.present? %></td> <%#分%>
+          <td><%= day.finished_at.floor_to(15.minutes).min if day.finished_at.present? %></td> <%#分%>
           <td></td>
           <td>
             <% if day.started_at.present? && day.finished_at.present? %>
               <%= str_times = working_times(day.started_at, day.finished_at) %>
-              <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
+              <% @total_working_times = format("%.2f", @total_working_times.to_f + str_times.to_f) %>
             <% end %>
           </td>
           <td><%= day.note %></td>
